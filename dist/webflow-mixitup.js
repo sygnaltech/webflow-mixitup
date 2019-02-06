@@ -1,20 +1,20 @@
 
 // Future Use 
-class WebFlowMixItUpHelper {
+// class WebFlowMixItUpHelper {
 
-   constructor(
-      container, // = '.home-services-collection-list'
-      categoryClass //  '.w-dyn-item .' + categoryLabelClassName + ':not(.w-condition-invisible)'
-      ) {
-     this.mainContainer = container;
-     this.categoryLabelClassName = categoryClass;
-   }
+//    constructor(
+//       container, // = '.home-services-collection-list'
+//       categoryClass //  '.w-dyn-item .' + categoryLabelClassName + ':not(.w-condition-invisible)'
+//       ) {
+//      this.mainContainer = container;
+//      this.categoryLabelClassName = categoryClass;
+//    }
  
-   sayHi() {
-     alert(this.name);
-   }
+//    sayHi() {
+//      alert(this.name);
+//    }
  
-}
+// }
 
 // Prepare the item (cards) for filtering
 // This involves creating appropriate filter-category-specific class names
@@ -27,17 +27,16 @@ function webFlowMixItUpPrepareItems(categoryLabelClassName)
    // Locate all categories
    // Ignore category items that are have been supressed using WebFlow's conditional visibility
    // But not those that are styled display: none 
-   var itemArray = document.querySelectorAll(
-      '.w-dyn-item .' + categoryLabelClassName)
+   var itemArray = $('.w-dyn-item .' + categoryLabelClassName)
       .not('.w-condition-invisible'); // exclude items which are conditionally invisible 
 
    // Iterate and add class names 
-   itemArray.forEach( function(elem) {
+   itemArray.each( function(elem) {
 
-      elem.parentElement.classList.add(
-         createClassName(elem.innerText || elem.innerContent)
-         );
-   
+      $(this).parent().addClass(
+         createClassName($(this).innerText || $(this).innerContent)
+      );
+
    });
 
 }
@@ -50,27 +49,21 @@ function webFlowMixItUpPrepareItems(categoryLabelClassName)
 function webFlowMixItUpPrepareFilterButtons(filterButtonClassName)
 {
 
-   console.log( "starting filter button code" );
-
-   var categoryArray = document.querySelectorAll('.w-dyn-item .filter-button');
+   // Locate all categories
+   var categoryArray = $('.w-dyn-item .filter-button');
    
-   categoryArray.forEach( function(elem) {
+   // Iterate and add class names 
+   categoryArray.each( function(elem) {
  
-      elem.setAttribute('data-filter', 
-         '.' + createClassName(elem.innerText || elem.innerContent)
+      $(this).attr('data-filter', 
+         '.' + createClassName(elem.innerText || elem.innerContent) // category class name 
          );
 
    }); 
 
-   // Set the reference to the container
-   var containerEl = document.querySelector('.blog-collection-list');
-
-   // Call the MixitUp plugin
-   mixitup(containerEl);
-
-   console.log( "init complete" );
-
 }
+
+
 
 // Creates an HTML-compliant class name from a text string
 // for use as a MixItUp-selectable category. 
