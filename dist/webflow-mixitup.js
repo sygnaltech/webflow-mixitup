@@ -34,8 +34,10 @@ function webFlowMixItUpPrepareItems(categoryLabelClassName)
    itemArray.each( function(elem) {
 
       $(this).parent().addClass(
-         createClassName($(this).innerText || $(this).innerContent)
+//         createClassName($(this).innerText || $(this).innerContent)
+         createClassName($(this).text())
       );
+
 
    });
 
@@ -56,7 +58,8 @@ function webFlowMixItUpPrepareFilterButtons(filterButtonClassName)
    categoryArray.each( function(elem) {
  
       $(this).attr('data-filter', 
-         '.' + createClassName(elem.innerText || elem.innerContent) // category class name 
+//         '.' + createClassName(elem.innerText || elem.innerContent) // category class name 
+            '.' + createClassName($(this).text())
          );
 
    }); 
